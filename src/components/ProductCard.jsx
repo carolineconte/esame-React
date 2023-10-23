@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom"
+import AppContext from "../context/AppContext";
+import { useContext } from "react";
 
 
-export const ProductCard = ({ product, buyItem }) => {
+export const ProductCard = ({ product }) => {
     const { id, title, category, images, price, discountPercentage, brand } = product
 
     const formatPrice = (value) => {
-        return value.toLocaleString();
+        return value.toLocaleString('IT', { style: 'currency', currency: 'EUR' });
     };
 
+    const { cartItems, setCartItems } = useContext(AppContext)
+    function buyItem() {
+        setCartItems([...cartItems, product])
+    }
 
 
     return (
@@ -20,7 +26,7 @@ export const ProductCard = ({ product, buyItem }) => {
                     <p className="product-card_price">{formatPrice(price)}</p>
                 </div>
             </Link>
-            <button onClick={buyItem} className="btn">Add Cart</button>
+            <Link to={'/cart'}><button onClick={buyItem} className="btn">Add Cart</button></Link>
         </section>
 
     )

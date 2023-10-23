@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { BiSearchAlt2, BiCameraMovie } from 'react-icons/bi';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {FaShoppingCart} from 'react-icons/fa'
+import AppContext from '../context/AppContext';
 
 export const SearchBar = () => {
     const [search, setSearch] = useState('')
@@ -18,6 +19,8 @@ export const SearchBar = () => {
 
     }
 
+    const {cartItems, isCartVisible, setIsCartVisible} = useContext(AppContext)
+
     return (
         <nav id='navbar'>
             <h2>
@@ -31,9 +34,9 @@ export const SearchBar = () => {
                     <BiSearchAlt2 />
                 </button>
             </form>
-           <button id='cart-icon'>
+           <button onClick={() =>  setIsCartVisible(!isCartVisible)} id='cart-icon'>
             <FaShoppingCart/>
-            <span className='cart-status'>1</span>
+            <span className='cart-status'>{cartItems.length}</span>
            </button> 
         </nav>
     )

@@ -1,9 +1,13 @@
 //Hooks
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProductCard } from "../components/ProductCard";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import AppContext from "../context/AppContext";
+import { Cart } from "./Cart";
 
 export const Products = () => {
+
+    const { products, setProducts } = useContext(AppContext)
 
     //API
     const [data, setData] = useState([])
@@ -15,26 +19,20 @@ export const Products = () => {
             setData(Listres.products);
         }
         get();
-  
-          
+
+
     }, [])
-
-    //Cart
-    const [cart, setCart] = useState([])
-
-    function buyItem(item) {
-       let temp = [...cart]
-       temp.push(item)
-       setCart(temp)
-    }
 
 
 
     return (
+        <>
         <div className="products">
-            {data.map(product =>  <ProductCard key={product.id} product={product} buyItem={buyItem} />
+            {data.map(product => <ProductCard key={product.id} product={product} />
             )
-        }
+            }
         </div>
+        <Outlet data={products} />
+        </>
     )
 }
