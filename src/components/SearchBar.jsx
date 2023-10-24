@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { BiSearchAlt2, BiCameraMovie } from 'react-icons/bi';
+import { BiSearchAlt2} from 'react-icons/bi';
 import { useContext, useState } from 'react';
 import {FaShoppingCart} from 'react-icons/fa'
 import AppContext from '../context/AppContext';
