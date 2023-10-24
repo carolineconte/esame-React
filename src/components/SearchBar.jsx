@@ -21,6 +21,11 @@ export const SearchBar = () => {
 
     const {cartItems, isCartVisible, setIsCartVisible} = useContext(AppContext)
 
+    const totalItems = cartItems.reduce((acc, item) => {
+        return item.quantity + acc;
+    }, 0)
+
+
     return (
         <nav id='navbar'>
             <h2>
@@ -36,7 +41,7 @@ export const SearchBar = () => {
             </form>
            <button onClick={() =>  setIsCartVisible(!isCartVisible)} id='cart-icon'>
             <FaShoppingCart/>
-            <span className='cart-status'>{cartItems.length}</span>
+            <span className='cart-status'>{totalItems}</span>
            </button> 
         </nav>
     )

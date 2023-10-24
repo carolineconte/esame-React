@@ -11,14 +11,26 @@ export const ProductCard = ({ product }) => {
     };
 
     const { cartItems, setCartItems } = useContext(AppContext)
+
     function buyItem() {
-        setCartItems([...cartItems, product])
+        const updatedCart = [...cartItems];
+        const itemIndex = updatedCart.findIndex((item) => item.id === product.id);
+      
+        if (itemIndex !== -1) {
+          updatedCart[itemIndex].quantity += 1;
+        } else {
+          product.quantity = 1;
+          updatedCart.push(product);
+        }
+      
+        setCartItems(updatedCart);
     }
 
+   
 
     return (
 
-        <section>
+        <section className="section">
             <Link className="product-card" to={`/product/${id}`}>
                 <img src={images[0]} alt="" />
                 <div className="product-card-info">
